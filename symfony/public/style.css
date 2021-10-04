@@ -1,0 +1,19 @@
+html,
+section {
+	background-color: #000000;
+}
+
+.nav-main a,
+.nav-main a:visited {
+	background-color: #0dcaf0;
+	color: black;
+}
+
+ {
+	color: black;
+}
+
+.nav-main a.active,
+.nav-main a.active:visited {
+	color: darkorange;
+}

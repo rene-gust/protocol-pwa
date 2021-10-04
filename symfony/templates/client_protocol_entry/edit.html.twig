@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ProtocollEntry{% endblock %}
+
+{% block body %}
+    <h1>Edit ProtocollEntry</h1>
+
+    {{ include('client_protocol_entry/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('client_protocol_entry_index') }}">back to list</a>
+
+    {{ include('client_protocol_entry/_delete_form.html.twig') }}
+{% endblock %}

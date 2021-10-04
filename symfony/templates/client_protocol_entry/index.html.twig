@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProtocollEntry index{% endblock %}
+
+{% block body %}
+    <h1>ProtocollEntry index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>DisturbanceType</th>
+                <th>StartTime</th>
+                <th>EndTime</th>
+                <th>Description</th>
+                <th>Witness</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for protocoll_entry in protocoll_entries %}
+            <tr>
+                <td>{{ protocoll_entry.id }}</td>
+                <td>{{ protocoll_entry.date ? protocoll_entry.date|date('Y-m-d') : '' }}</td>
+                <td>{{ protocoll_entry.disturbanceType }}</td>
+                <td>{{ protocoll_entry.startTime ? protocoll_entry.startTime|date('H:i:s') : '' }}</td>
+                <td>{{ protocoll_entry.endTime ? protocoll_entry.endTime|date('H:i:s') : '' }}</td>
+                <td>{{ protocoll_entry.description }}</td>
+                <td>{{ protocoll_entry.witness }}</td>
+                <td>
+                    <a href="{{ path('client_protocol_entry_show', {'id': protocoll_entry.id}) }}">show</a>
+                    <a href="{{ path('client_protocol_entry_edit', {'id': protocoll_entry.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('client_protocol_entry_new') }}">Create new</a>
+{% endblock %}

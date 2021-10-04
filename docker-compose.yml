@@ -1,0 +1,41 @@
+version: "2"
+services:
+  nginx:
+    build: ./docker/nginx
+    restart: always
+    ports:
+      - 8080:80
+    group_add:
+      - www-data
+    volumes:
+      - "./docker/nginx/etc/nginx:/etc/nginx/conf.d"
+      - "./docker/nginx/etc/ssl/certs:/etc/ssl/certs"
+    volumes_from:
+      - php
+    networks:
+      - default
+  php:
+    build: ./docker/php-fpm
+    restart: always
+    group_add:
+      - www-data
+    volumes:
+      - "./symfony:/var/www/html"
+      - "./docker/var/log:/var/log"
+      - ./docker/php-fpm/etc/php/mods-available/xdebug.ini:/etc/php/7.4/mods-available/xdebug.ini
+    networks:
+      - default
+  mariadb:
+    image: mariadb:10.4.18
+    volumes:
+      - mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+      MYSQL_DATABASE: unter_uns_protokoll
+    ports:
+      - "3316:3306"
+
+volumes:
+  mariadb:
